@@ -1,0 +1,32 @@
+package com.site.blog.my.core.util;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class clsp {
+
+    public static String extractNumber(String input) {
+        Pattern pattern = Pattern.compile("\\d+(\\.\\d{0,2})?");
+        Matcher matcher = pattern.matcher(input);
+        if (matcher.find()) {
+            String numberString = matcher.group();
+            if (numberString.contains(".")) {
+                int index = numberString.indexOf('.');
+                if (numberString.length() - index - 1 > 2) {
+                    numberString = numberString.substring(0, index + 3);
+                }
+            } else {
+                numberString += ".00";
+            }
+            return numberString;
+        }
+        return "";
+    }
+
+    public static void main(String[] args) {
+        String input1 = "abcd123.456";
+        String input2 = "abcd123";
+        System.out.println(extractNumber(input1));
+        System.out.println(extractNumber(input2));
+    }
+}
